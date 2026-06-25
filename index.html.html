@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nelmar J. Arandela — Team Leader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FAFAF8;
+      --surface: #FFFFFF;
+      --border: #E8E6E0;
+      --border-light: #F0EDE8;
+      --text-primary: #1A1916;
+      --text-secondary: #5A5850;
+      --text-muted: #9A9890;
+      --accent: #185FA5;
+      --accent-light: #E6F1FB;
+      --accent-mid: #B5D4F4;
+      --dot: #185FA5;
+      --tag-bg: #F4F2EE;
+      --tag-text: #5A5850;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Layout */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* Hero */
+    .hero {
+      display: grid;
+      grid-template-columns: 72px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 2.5rem;
+    }
+
+    .avatar {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 600;
+      color: #E6F1FB;
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .hero-info h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-role {
+      font-size: 14px;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: 4px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .hero-contact {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-contact a {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: color 0.15s;
+    }
+
+    .hero-contact a:hover { color: var(--accent); }
+
+    .hero-contact svg {
+      width: 14px;
+      height: 14px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      padding: 1rem 1.25rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* Section */
+    .section { margin-bottom: 2.5rem; }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.75;
+    }
+
+    /* Timeline */
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+
+    .tl-item {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      gap: 0 1rem;
+    }
+
+    .tl-track {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 5px;
+    }
+
+    .tl-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .tl-line {
+      width: 1px;
+      background: var(--border);
+      flex: 1;
+      margin-top: 4px;
+    }
+
+    .tl-item:last-child .tl-line { display: none; }
+
+    .tl-body { padding-bottom: 1.75rem; }
+    .tl-item:last-child .tl-body { padding-bottom: 0; }
+
+    .tl-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 2px;
+    }
+
+    .tl-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .tl-year {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .tl-company {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .tl-bullets {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tl-bullets li {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+      padding-left: 14px;
+      position: relative;
+      margin-bottom: 3px;
+    }
+
+    .tl-bullets li::before {
+      content: "–";
+      position: absolute;
+      left: 0;
+      color: var(--text-muted);
+    }
+
+    /* Skills */
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 10px;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+
+    .skill-card-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+    .tag {
+      font-size: 11px;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 5px;
+      padding: 3px 8px;
+      line-height: 1.4;
+    }
+
+    /* Certs */
+    .cert-grid {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cert-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 16px;
+      font-size: 13px;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .cert-icon {
+      width: 18px;
+      height: 18px;
+      stroke: var(--accent);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Education */
+    .edu-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 14px;
+    }
+
+    .edu-degree { color: var(--text-primary); font-weight: 500; }
+    .edu-year { font-size: 12px; color: var(--text-muted); }
+
+    /* Footer */
+    .footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Responsive */
+    @media (max-width: 520px) {
+      .hero {
+        grid-template-columns: 56px 1fr;
+        gap: 1rem;
+      }
+      .avatar { width: 56px; height: 56px; font-size: 16px; }
+      .hero-info h1 { font-size: 24px; }
+      .stats-bar { grid-template-columns: 1fr; }
+      .stat { text-align: left; padding: 0.75rem 1rem; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+<main class="page" role="main">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="avatar" aria-hidden="true">NA</div>
+    <div class="hero-info">
+      <h1>Nelmar J. Arandela</h1>
+      <p class="hero-role">Team Leader · BPO / CX Operations</p>
+      <nav class="hero-contact" aria-label="Contact links">
+        <a href="mailto:njarandela@gmail.com">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg>
+          njarandela@gmail.com
+        </a>
+        <a href="tel:09933357472">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.99 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+          09933357472
+        </a>
+        <a href="https://linkedin.com/in/nelmar-arandela" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Stats -->
+  <section class="stats-bar" aria-label="Career highlights">
+    <div class="stat">
+      <div class="stat-number">6+</div>
+      <div class="stat-label">Years in BPO / CX</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">95%</div>
+      <div class="stat-label">CSAT achieved</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">100+</div>
+      <div class="stat-label">New hires trained</div>
+    </div>
+  </section>
+
+  <!-- Summary -->
+  <section class="section" aria-labelledby="summary-heading">
+    <div class="section-eyebrow" id="summary-heading">Professional summary</div>
+    <p class="summary-text">
+      Results-driven Team Leader with 6+ years of experience in BPO/CX operations, specialising in escalation management, quality assurance, and team development. Proven expertise in building SOPs, leading calibration, and training new hires to drive performance. Skilled in QA, CSAT/NPS, WFM coordination, and real-time support, with certifications in Six Sigma and Leadership Training.
+    </p>
+  </section>
+
+  <!-- Experience -->
+  <section class="section" aria-labelledby="exp-heading">
+    <div class="section-eyebrow" id="exp-heading">Work experience</div>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-track"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-title">Team Leader</span>
+            <span class="tl-year">2025 – 2026</span>
+          </div>
+          <div class="tl-company">Concentrix</div>
+          <ul class="tl-bullets">
+            <li>Achieved 95% CSAT and 98% QA scores by leading agents for Escalations Desk and coaching advisors on KPI improvement, attendance, and soft skills</li>
+            <li>Handled real-time escalations and partnered with QA/WFM to optimise staffing, improving team performance and efficiency</li>
+            <li>Conducted weekly team reports to track progress and identify areas for improvement</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-track"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-title">Subject Matter Expert</span>
+            <span class="tl-year">2024 – 2025</span>
+          </div>
+          <div class="tl-company">Concentrix</div>
+          <ul class="tl-bullets">
+            <li>Built and updated SOPs, knowledge base articles, and escalation matrices to improve process efficiency and quality</li>
+            <li>Ran calibration sessions with QA and facilitated new-hire/process training, reducing errors and improving team performance</li>
+            <li>Trained 100+ new hires on workflows, tools, and quality standards, ensuring seamless onboarding</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-track"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-title">Customer Service Advisor</span>
+            <span class="tl-year">2023 – 2024</span>
+          </div>
+          <div class="tl-company">Concentrix</div>
+          <ul class="tl-bullets">
+            <li>Resolved customer inquiries via voice, chat, and email with 100% quality and 95% CSAT, consistently meeting or exceeding targets</li>
+            <li>Recognised as a top agent within 6 months while maintaining AHT and FCR targets</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-track"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-title">Subject Matter Expert</span>
+            <span class="tl-year">2022 – 2023</span>
+          </div>
+          <div class="tl-company">ProbeCX</div>
+          <ul class="tl-bullets">
+            <li>Supported frontline agents on complex cases and audited interactions for QA to ensure high-quality customer interactions</li>
+            <li>Delivered refresher huddles on process updates and compliance gaps, promoting continuous learning</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-track"><div class="tl-dot"></div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-meta">
+            <span class="tl-title">Customer Experience Executive</span>
+            <span class="tl-year">2019 – 2022</span>
+          </div>
+          <div class="tl-company">ProbeCX</div>
+          <ul class="tl-bullets">
+            <li>Handled inbound customer concerns for a retail account across billing, orders, and returns, consistently meeting QA and CSAT targets</li>
+            <li>Earned SME promotion by demonstrating exceptional customer service skills and process knowledge</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <section class="section" aria-labelledby="skills-heading">
+    <div class="section-eyebrow" id="skills-heading">Skills &amp; tools</div>
+    <div class="skill-grid">
+      <div class="skill-card">
+        <div class="skill-card-label">CX Platforms</div>
+        <div class="tags">
+          <span class="tag">Zendesk</span>
+          <span class="tag">Meta Tools</span>
+          <span class="tag">NICE</span>
+          <span class="tag">Ads Manager</span>
+          <span class="tag">AGC</span>
+          <span class="tag">iSnap</span>
+          <span class="tag">UBD</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Leadership</div>
+        <div class="tags">
+          <span class="tag">Team coaching</span>
+          <span class="tag">Escalation management</span>
+          <span class="tag">Performance management</span>
+          <span class="tag">Shift supervision</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Knowledge Mgmt</div>
+        <div class="tags">
+          <span class="tag">SOP creation</span>
+          <span class="tag">Calibration</span>
+          <span class="tag">Training facilitation</span>
+          <span class="tag">Content updates</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Productivity</div>
+        <div class="tags">
+          <span class="tag">MS Office</span>
+          <span class="tag">Google Workspace</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-card-label">Soft Skills</div>
+        <div class="tags">
+          <span class="tag">Leadership</span>
+          <span class="tag">Communication</span>
+          <span class="tag">Problem-solving</span>
+          <span class="tag">Adaptability</span>
+          <span class="tag">Time management</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications -->
+  <section class="section" aria-labelledby="cert-heading">
+    <div class="section-eyebrow" id="cert-heading">Certifications</div>
+    <div class="cert-grid">
+      <div class="cert-pill">
+        <svg class="cert-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        Six Sigma Certificate — 2026
+      </div>
+      <div class="cert-pill">
+        <svg class="cert-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Leadership Training — 2026
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section class="section" aria-labelledby="edu-heading">
+    <div class="section-eyebrow" id="edu-heading">Education</div>
+    <div class="edu-list">
+      <div class="edu-item">
+        <span class="edu-degree">Automotive Engineering Technology</span>
+        <span class="edu-year">2008 – 2011</span>
+      </div>
+      <div class="edu-item">
+        <span class="edu-degree">Computer Engineering</span>
+        <span class="edu-year">2006 – 2008</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Nelmar J. Arandela &nbsp;·&nbsp; <a href="mailto:njarandela@gmail.com" style="color:inherit;">njarandela@gmail.com</a> &nbsp;·&nbsp; 09933357472</p>
+    <p style="margin-top:6px;">© 2026 · All rights reserved</p>
+  </footer>
+
+</main>
+
+</body>
+</html>
